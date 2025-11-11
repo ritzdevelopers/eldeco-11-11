@@ -1,0 +1,833 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eldeco</title>
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="icon" href="images/favicon.ico" />
+   
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=AW-16457709652"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "AW-16457709652");
+    </script>
+  </head>
+  <body>
+    <div
+      class="fixed w-full bg-[#1e2939] gap-4 py-4 text-white flex justify-evenly bottom-0 z-99"
+    >
+      <button class="quote query_form w-[50%] cursor-pointer">
+        Get Quote Today
+      </button>
+      <div class="w-[2px] bg-changer"></div>
+      <button class="get_call query_form w-[50%] cursor-pointer">
+        Get A call
+      </button>
+    </div>
+    <!-- Thank You Popup -->
+    <div
+      id="thankYouOverlay"
+      class="fixed inset-0 bg-[#000000a6] z-99 flex items-center hidden justify-center px-4"
+    >
+      <div
+        id="thankYouBox"
+        class="bg-gradient-to-br from-white to-gray-100 w-full max-w-md p-8 rounded-2xl shadow-2xl text-center space-y-6"
+      >
+        <!-- Animated Checkmark SVG -->
+        <div class="flex justify-center">
+          <svg
+            class="w-16 h-16 text-green-500 animate-bounce"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+
+        <h2 class="text-3xl font-bold text-gray-800">Thank You!</h2>
+        <p class="text-gray-600 text-lg">
+          We've received your enquiry. Our expert will reach out to you shortly.
+        </p>
+
+        <button
+          id="thankYouOkayBtn"
+          class="bg-green-600 hover:bg-green-700 text-white text-base px-6 py-2.5 rounded-md transition duration-300 shadow-md cursor-pointer"
+        >
+          Okay, Got it!
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="popupFormOverlay"
+      class="fixed inset-0 flex bg-[#000000a6] z-[999] hidden items-center justify-center"
+    >
+      <!-- Popup Box -->
+      <div
+        id="popupFormBox"
+        class="bg-changer w-[290px] sm:w-[450px] rounded-xl p-6 relative opacity-0 scale-90"
+      >
+        <!-- Close Button -->
+        <button
+          id="popupCloseBtn"
+          class="absolute cursor-pointer top-3 right-4 text-gray-500 hover:text-red-500 text-2xl leading-none"
+        >
+          &times;
+        </button>
+
+        <h3 class="text-xl text-center font-semibold mb-4">
+          Book Your Dream Home
+        </h3>
+        <form id="contactForm" class="space-y-4">
+          <input type="hidden" name="source" value="google-display" />
+
+          <input
+            name="name"
+            type="text"
+            placeholder="Full Name"
+            class="w-full border px-4 py-2 rounded-md outline-none"
+            required
+          />
+          <input
+            name="contact"
+            type="tel"
+            placeholder="Mobile Number"
+            class="w-full border px-4 py-2 rounded-md outline-none"
+            required
+          />
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            class="w-full border px-4 py-2 rounded-md outline-none"
+            required
+          />
+          <textarea
+            name="message"
+            placeholder="Message (Optional)"
+            class="w-full border px-4 py-2 rounded-md resize-none outline-none"
+          ></textarea>
+          <button
+            id="contactBtn"
+            type="submit"
+            class="bg-[#1e2939] cursor-pointer text-white px-6 py-2 rounded-md w-full hover:bg-[#1a273b] transition"
+          >
+            Submit
+          </button>
+          <p id="contactStatus" class="text-sm text-center hidden"></p>
+        </form>
+      </div>
+    </div>
+    <!-- 3 BR  VRV HOMES AT YAMUNA EXPRESSWAY -> ₹1.35CR.* NOW ONWARDS -->
+    <section class="home_section d_container" id="home">
+      <main class="home_main relative w-full">
+        <header
+          class="header fixed top-0 left-0 w-full sm:w-[25%] sm:min-w-[300px] z-50"
+        >
+          <button
+            id="menuButton"
+            class="px-4 menuBtn py-2 relative cursor-pointer z-50 bg-gray-800 text-white"
+          >
+            Menu
+          </button>
+
+          <nav
+            id="sideNav"
+            class="fixed top-0 left-0 w-full sm:w-[25%] bg-changer py-8 px-4 flex flex-col h-full min-h-screen gap-12 drop-shadow-[5px_0_10px_rgba(0,0,0,0.1)] z-99"
+          >
+            <button
+              id="closeButton"
+              class="cursor-pointer absolute right-[5%] top-[4%] text-xl font-bold"
+            >
+              X
+            </button>
+
+            <div class="logo w-32">
+              <img src="/images/eldecoLogo-removebg-preview.png" alt="eledeco_logo" />
+            </div>
+
+            <ul class="nav_ul flex flex-col gap-4 text-m py-2 px-4">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#amenities">Amenities</a></li>
+              <li><a href="#floor-plans">Floor Plans</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+              <li><a href="#location">Location</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <button
+              class="cta_nav query_form cursor-pointer text-white bg-[#1e2939] px-4 py-2 rounded-full"
+            >
+              Enquire Now
+            </button>
+          </nav>
+        </header>
+        <div class="home_banner">
+          <img
+            class="w-full hidden lg:block"
+            src="./images/up-banner.jpg"
+            alt=""
+          />
+          <img
+            class="w-full mt-10 block lg:hidden"
+            src="images/banner-for-mobiles-with-logos.jpg"
+            alt=""
+          />
+        </div>
+      </main>
+    </section>
+  <!-- The Section 3 Is Starting From Here  -->
+  <section
+  id="Floor-Plans"
+  class="s3 w-screen flex justify-center items-start py-10 sm:py-12 px-4 lg:min-h-screen lg:items-center"
+>
+  <div
+    class="flex flex-col lg:flex-row gap-8 max-w-6xl w-full items-start"
+  >
+    <!-- Left Side Image Div -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center">
+      <img
+        src="./images/s3/s3.png"
+        alt="Idea Image"
+        class="w-full hidden lg:block rounded-lg h-auto object-contain"
+      />
+      <img
+        src="./images/eldeco-mb.jpg"
+        alt="Idea Image"
+        class="w-full lg:hidden rounded-lg h-auto object-contain"
+      />
+    </div>
+
+    <!-- Right Side Content Div -->
+    <div class="w-full lg:w-[554px] flex flex-col gap-6">
+      <!-- Heading Container -->
+      <div class="headingSection space-y-4">
+        <h2
+          style="font-family: MonstrSemiBold"
+          class="font-[600] text-[28px] sm:text-[32px] md:text-[36px] lg:text-[48px] text-[#000000]"
+        >
+          The Idea
+        </h2>
+        <p
+          style="font-family: Monstr"
+          class="font-[400] text-[14px] sm:text-[15px] md:text-[16px] lg:text-[18px] text-[#00000099]"
+        >
+          #The_Wow_Life brings the comfort of podium living to a
+          future-ready growth corridor. Homes rise above traffic and
+          noise, opening into landscaped greens, light-filled lobbies, and
+          purposeful amenities designed for everyday ease.
+        </p>
+      </div>
+
+      <!-- List Container -->
+      <div style="font-family: Monstr" class="flex flex-col gap-5 sm:gap-6">
+        <!-- Card Item Template -->
+        <div
+          class="card flex flex-col sm:flex-row gap-3 sm:gap-4 items-start border-b border-[#BCBBBB] pb-5 lg:pb-0 lg:min-h-[70px]"
+        >
+          <div class="icon flex-shrink-0">
+            <img
+              src="./images/s3/s3icn1.png"
+              alt="icon"
+              class="w-[44px] h-[44px] sm:w-[50px] sm:h-[50px]"
+            />
+          </div>
+          <p
+            class="font-[400] text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] text-[#00000099] text-left"
+          >
+            G+32 towers | Podium-level living
+          </p>
+        </div>
+
+        <div
+          class="card flex flex-col sm:flex-row gap-3 sm:gap-4 items-start border-b border-[#BCBBBB] pb-5 lg:pb-0 lg:min-h-[70px]"
+        >
+          <div class="icon flex-shrink-0">
+            <img
+              src="./images/s3/s3icn2.png"
+              alt="icon"
+              class="w-[44px] h-[44px] sm:w-[50px] sm:h-[50px]"
+            />
+          </div>
+          <p
+            class="font-[400] text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] text-[#00000099] text-left"
+          >
+            Spacious 3 BHK formats & limited duplexes
+          </p>
+        </div>
+
+        <div
+          class="card flex flex-col sm:flex-row gap-3 sm:gap-4 items-start border-b border-[#BCBBBB] pb-5 lg:pb-0 lg:min-h-[70px]"
+        >
+          <div class="icon flex-shrink-0">
+            <img
+              src="./images/s3/s3icn3.png"
+              alt="icon"
+              class="w-[44px] h-[44px] sm:w-[50px] sm:h-[50px]"
+            />
+          </div>
+          <p
+            class="font-[400] text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] text-[#00000099] text-left"
+          >
+            Modern construction tech for superior finish & speed
+          </p>
+        </div>
+
+        <div
+          class="card flex flex-col sm:flex-row gap-3 sm:gap-4 items-start border-b border-[#BCBBBB] pb-5 lg:pb-0 lg:min-h-[70px]"
+        >
+          <div class="icon flex-shrink-0">
+            <img
+              src="./images/s3/s3icn4.png"
+              alt="icon"
+              class="w-[44px] h-[44px] sm:w-[50px] sm:h-[50px]"
+            />
+          </div>
+          <p
+            class="font-[400] text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] text-[#00000099] text-left"
+          >
+            Clubhouse with pool, courts, fitness & co-working zones
+          </p>
+        </div>
+
+        <div
+          class="card flex flex-col sm:flex-row gap-3 sm:gap-4 items-start border-b border-[#BCBBBB] pb-5 lg:pb-0 lg:min-h-[70px]"
+        >
+          <div class="icon flex-shrink-0">
+            <img
+              src="./images/s3/s3icn5.png"
+              alt="icon"
+              class="w-[44px] h-[44px] sm:w-[50px] sm:h-[50px]"
+            />
+          </div>
+          <p
+            class="font-[400] text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] text-[#00000099] text-left"
+          >
+            Secure, access-controlled community with 24×7 services
+          </p>
+        </div>
+
+        <div
+          class="card flex flex-col sm:flex-row gap-3 sm:gap-4 items-start border-b border-[#BCBBBB] pb-5 lg:pb-0 lg:min-h-[70px]"
+        >
+          <div class="icon flex-shrink-0">
+            <img
+              src="./images/s3/s3icn6.png"
+              alt="icon"
+              class="w-[44px] h-[44px] sm:w-[50px] sm:h-[50px]"
+            />
+          </div>
+          <p
+            class="font-[400] text-[15px] sm:text-[16px] md:text-[17px] lg:text-[18px] text-[#00000099] text-left"
+          >
+            Excellent connectivity via Yamuna Expressway; quick access to
+            key employment & lifestyle hubs
+          </p>
+        </div>
+
+        <!-- Bottom Button -->
+        <div class="flex flex-col items-start justify-start">
+          <h2 class="text-start text-[#114D65] text-lg font-bold"> 3 BR  VRV HOMES AT YAMUNA EXPRESSWAY <br> ₹1.35CR.* NOW ONWARDS </h2>
+          <div
+          class="btmBtn cta-button mt-6 flex justify-center flex-col lg:justify-start"
+        >
+      
+          <img
+            src="./images/s3/s3btn.png"
+            alt="button"
+            class="max-w-[180px] w-full  h-auto cursor-pointer"
+          />
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    <section
+      id="about"
+      class="flex flex-col bg-changer md:flex-row justify-evenly items-center bg-changer py-10! d_container gap-10"
+    >
+      <!-- Left: Image container (trigger for scroll) -->
+      <div
+        id="image-container"
+        class="flex-1 max-w-md overflow-hidden rounded-lg"
+      >
+        <img
+          id="about-image"
+          src="./images/elAbout.jpg"
+          alt="About image"
+          class="w-full scale-75"
+          style="transform-origin: center center"
+        />
+      </div>
+
+      <!-- Right: Text content -->
+      <div class="flex-1 text-left">
+        <h2 id="animate-heading" class="text-4xl font-bold mb-4 text-gray-400">
+          About Us
+        </h2>
+        <p id="animate-paragraph" class="text-lg text-gray-400">
+          With 175+ delivered projects and presence across 30 cities, Eldeco
+          Group stands for trust, innovation, and timely delivery. As a listed
+          and established real estate powerhouse, Eldeco brings its legacy of
+          quality and transparency to Greater Noida’s most promising new
+          address.
+        </p>
+        <button
+          class="inline-flex items-center query_form gap-2 bg-[#1e2939] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#1a273b] transition-colors duration-300 focus:outline-none focus:ring-4 cursor-pointer focus:ring-blue-300 mt-4"
+        >
+          Know More About Eldeco
+        </button>
+      </div>
+    </section>
+    <section id="amenities" class="d_container">
+      <h2
+        class="text-2xl md:text-4xl font-bold mb-10 text-gray-900 flex items-center gap-3"
+      >
+        <span class="text-4xl"></span>
+        AMENITIES, FEATURES & BENEFITS
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card template -->
+        <div
+          class="amenity-card bg-changer p-6 rounded-xl shadow-lg flex flex-col space-y-4 cursor-pointer hover:shadow-2xl transition-shadow duration-300"
+        >
+          <img src="" alt="" />
+          <h3 class="text-xl font-semibold text-gray-900">Luxury Amenities</h3>
+          <p class="text-gray-600">
+            Clubhouse, Half Olympic-size Swimming Pool, Spa, Party Hall, Pet
+            Park
+          </p>
+        </div>
+
+        <div
+          class="amenity-card bg-changer p-6 rounded-xl shadow-lg flex flex-col space-y-4 cursor-pointer hover:shadow-2xl transition-shadow duration-300"
+        >
+          <div class="text-4xl">🧘‍♂️</div>
+          <h3 class="text-xl font-semibold text-gray-900">
+            Wellness & Leisure
+          </h3>
+          <p class="text-gray-600">
+            Yoga Lawn, Cycling Track, Badminton & Squash Courts, Lawn Tennis,
+            Basketball
+          </p>
+        </div>
+
+        <div
+          class="amenity-card bg-changer p-6 rounded-xl shadow-lg flex flex-col space-y-4 cursor-pointer hover:shadow-2xl transition-shadow duration-300"
+        >
+          <div class="text-4xl">👨‍👩‍👧‍👦</div>
+          <h3 class="text-xl font-semibold text-gray-900">Family-Centric</h3>
+          <p class="text-gray-600">
+            Kids' Play Area, Senior Citizen Deck, Dedicated Parking
+          </p>
+        </div>
+
+        <div
+          class="amenity-card bg-changer p-6 rounded-xl shadow-lg flex flex-col space-y-4 cursor-pointer hover:shadow-2xl transition-shadow duration-300"
+        >
+          <div class="text-4xl">💡</div>
+          <h3 class="text-xl font-semibold text-gray-900">Smart Living</h3>
+          <p class="text-gray-600">
+            Home Automation, High-Speed Elevators, 24x7 Power & Water Supply
+          </p>
+        </div>
+
+        <div
+          class="amenity-card bg-changer p-6 rounded-xl shadow-lg flex flex-col space-y-4 cursor-pointer hover:shadow-2xl transition-shadow duration-300"
+        >
+          <div class="text-4xl">🌳</div>
+          <h3 class="text-xl font-semibold text-gray-900">Nature-Focused</h3>
+          <p class="text-gray-600">
+            3-Acre Central Green, Multiple Water Bodies, 80% Open Area,
+            Rainwater Harvesting
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <button
+          class="inline-flex items-center query_form gap-2 bg-[#1e2939] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#1a273b] transition-colors duration-300 focus:outline-none focus:ring-4 cursor-pointer focus:ring-blue-300"
+        >
+          Explore All Amenities
+        </button>
+      </div>
+    </section>
+
+    <section id="floor-plans" class="bg-changer py-10! d_container">
+      <div class="mb-12">
+        <h2
+          class="flex items-center gap-3 text-2xl md:text-4xl font-bold text-gray-900"
+        >
+          <span class="text-4xl"></span> FLOOR PLANS
+        </h2>
+        <p class="mt-2 text-lg text-gray-700">
+          Choose the Layout That Complements Your Lifestyle
+        </p>
+      </div>
+
+      <ul class="space-y-10">
+        <!-- Floor Plan Card -->
+        <li
+          class="floor-item floor_list items-center flex flex-col md:flex-row bg-gray-50 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-default bg-changer"
+        >
+          <div class="flex-shrink-0 overflow-hidden relative">
+            <img
+              src="./images/eldecoPlan.jpg"
+              alt="3 BHK with 2 Toilets Floor Plan"
+              class="w-full h-full object-cover transform transition-transform duration-300 ease-out blur-sm"
+            />
+          </div>
+          <div class="p-6 flex flex-col justify-between flex-1">
+            <div>
+              <span
+                class="text-gray-800 font-semibold text-lg md:text-xl block mb-4"
+              >
+                3 BHK with 2 Toilets – 1550 sq. ft.
+              </span>
+              <button
+                type="button"
+                class="query_form cursor-pointer inline-flex bg-[#1e2939] text-white font-semibold px-5 py-2 rounded-md hover:bg-[#1a273b] transition-colors duration-300 items-center gap-2"
+              >
+                Request Floor Plan & Pricing Details
+              </button>
+            </div>
+          </div>
+        </li>
+
+        <li
+          class="floor-item floor_list bg-changer flex items-center flex-col md:flex-row bg-gray-50 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-default"
+        >
+          <div class="flex-shrink-0 overflow-hidden relative">
+            <img
+              src="./images/eldecoPlan.jpg"
+              alt="3 BHK with 3 Toilets Floor Plan"
+              class="w-full h-full object-cover transform transition-transform duration-300 ease-out blur-sm"
+            />
+          </div>
+          <div class="p-6 flex flex-col justify-between flex-1">
+            <div>
+              <span
+                class="text-gray-800 font-semibold text-lg md:text-xl block mb-4"
+              >
+                3 BHK with 3 Toilets – Spacious & Elegant
+              </span>
+              <button
+                type="button"
+                class="query_form cursor-pointer inline-flex bg-[#1e2939] text-white font-semibold px-5 py-2 rounded-md hover:bg-[#1a273b] transition-colors duration-300 items-center gap-2"
+              >
+                Request Floor Plan & Pricing Details
+              </button>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+
+      <p class="mt-12 text-gray-600 text-lg leading-relaxed">
+        Enjoy three-side open units, running balconies, natural light, and
+        well-ventilated layouts that offer stunning green views and a
+        clutter-free living experience.
+      </p>
+    </section>
+
+    <!-- <section id="gallery" class="d_container">
+      <div class="mb-12 ">
+        <h2
+          class="flex items-center gap-3 text-2xl md:text-4xl font-bold text-gray-900"
+        >
+          <span class="text-4xl"></span> GALLERY
+        </h2>
+        <p class="mt-2 text-lg text-gray-700">Visualize Your Future Home</p>
+      </div>
+
+      <div
+        class="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4"
+        id="gallery-images"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1745563115146-aec349b7cadf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8"
+          class="w-full object-cover gallery-img"
+        />
+        <img
+          src="https://plus.unsplash.com/premium_photo-1747326386378-5635788ea82c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0MXx8fGVufDB8fHx8fA%3D%3D"
+          class="w-full object-cover gallery-img"
+        />
+        <img
+          src="https://plus.unsplash.com/premium_photo-1747054586711-4e5795a7f33b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0NXx8fGVufDB8fHx8fA%3D%3D"
+          class="w-full object-cover gallery-img"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1744894203360-a3f3c56433e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0M3x8fGVufDB8fHx8fA%3D%3D"
+          class="w-full object-cover gallery-img"
+        />
+        <img
+          src="https://plus.unsplash.com/premium_photo-1747504296849-d477136528ed?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw4MXx8fGVufDB8fHx8fA%3D%3D"
+          class="w-full object-cover gallery-img"
+        />
+        <img
+          src="https://plus.unsplash.com/premium_photo-1747371476846-1af8fbc9f3c3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMjV8fHxlbnwwfHx8fHw%3D"
+          class="w-full object-cover gallery-img"
+        />
+      </div>
+
+      <div class="mt-10 text-center">
+        <button
+          class="query_form cursor-pointer px-6 py-3 bg-[#1e2939] text-white text-lg font-semibold hover:bg-[#1a273b] transition-all duration-300"
+        >
+          Book a Site Visit
+        </button>
+      </div>
+    </section> -->
+    <section id="location" class="py-10! d_container">
+      <div class="mb-12">
+        <h2
+          class="flex items-center gap-3 text-2xl md:text-4xl font-bold text-gray-900"
+        >
+          <span class="text-4xl"></span> LOCATION ADVANTAGE – SECTOR 22D, YAMUNA
+          EXPRESSWAY
+        </h2>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <!-- Left: List -->
+        <ul
+          id="location-list"
+          class="space-y-4 text-gray-800 text-lg md:flex-1"
+        >
+          <li class="flex items-start gap-2">
+            • Near Proposed Metro Line (YEIDA)
+          </li>
+          <li class="flex items-start gap-2">
+            • Close to Jewar International Airport
+          </li>
+          <li class="flex items-start gap-2">
+            • Minutes from Proposed Noida Film City
+          </li>
+          <li class="flex items-start gap-2">
+            • Seamless Access to Pari Chowk, Sector 150, Noida-Greater Noida
+            Expressway
+          </li>
+          <li class="flex items-start gap-2">
+            • Near top schools, hospitals, malls & entertainment hubs
+          </li>
+          <li class="flex items-start gap-2">
+            • Easy access to IGI Airport via Noida Expressway
+          </li>
+
+          <li class="mt-6">
+            <button
+              class="query_form px-5 cursor-pointer py-3 bg-[#1e2939] text-white font-semibold hover:bg-[#1a273b] transition-all duration-300"
+            >
+              Explore Neighbourhood Map
+            </button>
+          </li>
+        </ul>
+
+        <!-- Right: Embedded Map -->
+        <div id="location-map" class="w-full md:w-1/2 shadow-lg">
+          <img src="./images/eldecoLocation.jpg" alt="" class="w-full" />
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT US SECTION -->
+    <section id="contact" class="d_container pb-6!">
+      <div class="mb-10 max-w-2xl">
+        <h2
+          class="flex items-center gap-3 text-2xl md:text-4xl font-bold text-gray-900"
+        >
+          CONTACT US – CLAIM YOUR BLISSFUL ADDRESS TODAY
+        </h2>
+        <p class="mt-3 text-lg text-gray-700">
+          Limited Inventory. High Returns. Luxury That Lasts.
+        </p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-10 items-stretch">
+        <!-- Left Image -->
+        <div id="contact-img" class="lg:w-[60%] w-full lg:h-auto">
+          <img
+            src="./images/eldecoContract.jpg"
+            alt="Contact Visual"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Right Form -->
+        <div
+          id="contact-form"
+          class="lg:w-[40%] w-full bg-changer p-6 md:p-8 shadow-md"
+        >
+          <h3 class="text-xl font-bold mb-4 text-gray-900">
+            Schedule Your Private Consultation Now – Before Pre-Launch Offers
+            Expire!
+          </h3>
+          <form id="expertForm" class="space-y-4">
+            <input type="hidden" name="source" value="google-display" />
+
+            <input
+              name="name"
+              type="text"
+              placeholder="Full Name"
+              class="w-full p-3 border border-gray-300 focus:outline-blue-500"
+              required
+            />
+            <input
+              name="contact"
+              type="tel"
+              placeholder="Mobile Number"
+              class="w-full p-3 border border-gray-300 focus:outline-blue-500"
+              required
+            />
+            <input
+              name="email"
+              type="email"
+              placeholder="Email"
+              class="w-full p-3 border border-gray-300 focus:outline-blue-500"
+              required
+            />
+            <textarea
+              name="message"
+              placeholder="Message (Optional)"
+              rows="3"
+              class="w-full p-3 border border-gray-300 focus:outline-blue-500"
+            ></textarea>
+            <div class="flex flex-col gap-3 mt-4">
+              <button
+                id="expertBtn"
+                type="submit"
+                class="cursor-pointer bg-gray-800 text-white px-4 py-3 font-semibold hover:bg-gray-900 transition-all duration-300"
+              >
+                Talk to Our Expert Now
+              </button>
+              <p id="expertStatus" class="text-sm hidden"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- FOOTER SECTION -->
+    <footer
+      id="footer"
+      class="d_container text-[#101214] px-6 md:px-12 pt-16! pb-8! shadow-[0_-4px_10px_rgba(0,0,0,0.1)]"
+    >
+      <div
+        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+      >
+        <!-- Logo & About -->
+        <div id="footer-logo">
+          <img src="/images/eldecoLogo.png" alt="Logo" class="h-12 mb-4" />
+          <p class="text-zinc-900 text-sm leading-relaxed">
+            Discover luxury living in the heart of Yamuna Expressway. Premium
+            units, world-class amenities, and unmatched connectivity await you
+            at our exclusive project.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div id="footer-links">
+          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2 text-sm text-zinc-900">
+            <li>
+              <a href="#home" class="hover:text-zinc-700 transition">Home</a>
+            </li>
+            <li>
+              <a href="#about" class="hover:text-zinc-700 transition">About</a>
+            </li>
+            <li>
+              <a href="#gallery" class="hover:text-zinc-700 transition"
+                >Gallery</a
+              >
+            </li>
+            <li>
+              <a href="#location" class="hover:text-zinc-700 transition"
+                >Location</a
+              >
+            </li>
+            <li>
+              <a href="#contact" class="hover:text-zinc-700 transition"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <!-- <div id="footer-contact">
+          <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+          <ul class="text-sm text-zinc-900 space-y-2">
+            <li>📍 Sector 22D, Yamuna Expressway</li>
+            <li>
+              📞
+              <a href="tel:+911234567890" class="hover:text-zinc-700 transition"
+                >+91 123 456 7890</a
+              >
+            </li>
+            <li>
+              ✉️
+              <a
+                href="mailto:info@example.com"
+                class="hover:text-zinc-700 transition"
+                >info@example.com</a
+              >
+            </li>
+          </ul>
+        </div> -->
+
+        <!-- CTA Button -->
+        <div id="footer-cta" class="flex flex-col gap-5">
+          <h3 class="text-lg font-semibold mb-2">Looking for BHK Options?</h3>
+          <button
+            class="query_form cursor-pointer bg-[#1e2939] text-white py-3 px-5 font-semibold hover:bg-[#1a273b] transition-all duration-300 w-fit"
+          >
+            Enquire BHK Availability
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="mt-12 border-t border-gray-700 pt-6 text-center text-zinc-900 text-sm"
+      >
+        © 2025 Eldeco Group. All rights reserved.
+      </div>
+    </footer>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+      integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"
+      integrity="sha512-P2IDYZfqSwjcSjX0BKeNhwRUH8zRPGlgcWl5n6gBLzdi4Y5/0O4zaXrtO4K9TZK6Hn1BenYpKowuCavNandERg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="scripts/script.js"></script>
+
+    <script></script>
+
+    <script src="scripts/gsap.js"></script>
+  </body>
+</html>
